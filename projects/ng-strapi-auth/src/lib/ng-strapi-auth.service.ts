@@ -27,6 +27,23 @@ export class NgStrapiAuthService {
     }
   }
 
+  async autoSignIn() {
+    if (this.apiUrl) { throw new Error('[NgStrapiAuth]: no api url provided'); }
+
+    const credentials = this.getSavedCredentials();
+
+    if (credentials) {
+      this.user = credentials.user;
+      this.jwt = credentials.jwt;
+      this.authenticated = true;
+
+      return this.user;
+      
+    } else {
+      throw new Error('[NgStrapiAuth]: no user auto signed in');
+    }
+  }
+
   async signIn(username: string, password: string) {
     if (this.apiUrl) { throw new Error('[NgStrapiAuth]: no api url provided'); }
 
@@ -56,7 +73,7 @@ export class NgStrapiAuthService {
 
   async register(username: string, email: string, password: string) {
     if (this.apiUrl) { throw new Error('[NgStrapiAuth]: no api url provided'); }
-    
+
     try {
       const res: any = await this.httpClient.post(this.apiUrl + '/auth/local/register', { username: username, email: email, password: password }).toPromise();
 
