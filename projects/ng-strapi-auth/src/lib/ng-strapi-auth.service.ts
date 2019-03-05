@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NgStrapiAuthService {
 
-  constructor() { }
+  constructor( @Inject('config') private config ) { }
 }
