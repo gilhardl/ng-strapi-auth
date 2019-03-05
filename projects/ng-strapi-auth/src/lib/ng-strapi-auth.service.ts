@@ -67,4 +67,36 @@ export class NgStrapiAuthService {
     }
   }
 
+  private getSavedCredentials() {
+    const user = localStorage.getItem('current-user');
+    const jwt = localStorage.getItem('current-user-jwt');
+
+    if (user && jwt) {
+      return {
+        user: user,
+        jwt: jwt
+      };
+    } else {
+      return undefined;
+    }
+  }
+
+  private saveCredentials() {
+    if (this.user) {
+      localStorage.setItem('current-user', this.user);
+    }
+    if (this.jwt) {
+      localStorage.setItem('current-user-jwt', this.jwt);
+    }
+  }
+
+  private unsaveCredentials() {
+    if (this.user) {
+      localStorage.removeItem('current-user');
+    }
+    if (this.jwt) {
+      localStorage.removeItem('current-user-jwt');
+    }
+  }
+
 }
