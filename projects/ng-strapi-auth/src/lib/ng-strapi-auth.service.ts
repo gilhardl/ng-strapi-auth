@@ -36,6 +36,7 @@ export class NgStrapiAuthService {
       this.user = res.user;
       this.jwt = res.jwt;
       this.authenticated = true;
+      this.saveCredentials();
 
       return this.user;
 
@@ -59,6 +60,7 @@ export class NgStrapiAuthService {
       this.user = res.user;
       this.jwt = res.jwt;
       this.authenticated = true;
+      this.saveCredentials();
 
       return this.user;
 
