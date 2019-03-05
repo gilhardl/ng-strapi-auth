@@ -1,5 +1,9 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
+
 import { NgStrapiAuthComponent } from './ng-strapi-auth.component';
+import { NgStrapiAuthService } from './ng-strapi-auth.service';
+
+import { StrapiAuthConfig } from './strapi-auth-config';
 
 @NgModule({
   declarations: [NgStrapiAuthComponent],
@@ -7,4 +11,16 @@ import { NgStrapiAuthComponent } from './ng-strapi-auth.component';
   ],
   exports: [NgStrapiAuthComponent]
 })
-export class NgStrapiAuthModule { }
+export class NgStrapiAuthModule {
+
+  public static forRoot(config: StrapiAuthConfig): ModuleWithProviders {
+    return {
+      ngModule: NgStrapiAuthModule,
+      providers: [
+        NgStrapiAuthService,
+        { provide: 'config', useValue: config }
+      ]
+    };
+  }
+
+}
