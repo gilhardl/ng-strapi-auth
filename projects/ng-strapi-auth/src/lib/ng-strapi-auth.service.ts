@@ -55,6 +55,8 @@ export class NgStrapiAuthService {
   }
 
   async register(username: string, email: string, password: string) {
+    if (this.apiUrl) { throw new Error('[NgStrapiAuth]: no api url provided'); }
+    
     try {
       const res: any = await this.httpClient.post(this.apiUrl + '/auth/local/register', { username: username, email: email, password: password }).toPromise();
 
