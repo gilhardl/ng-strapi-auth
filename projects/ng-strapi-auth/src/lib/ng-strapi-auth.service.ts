@@ -52,4 +52,19 @@ export class NgStrapiAuthService {
     return true;
   }
 
+  async register(username: string, email: string, password: string) {
+    try {
+      const res: any = await this.httpClient.post(this.apiUrl + '/auth/local/register', { username: username, email: email, password: password }).toPromise();
+
+      this.user = res.user;
+      this.jwt = res.jwt;
+      this.authenticated = true;
+
+      return this.user;
+
+    } catch (err) {
+      throw err;
+    }
+  }
+
 }
