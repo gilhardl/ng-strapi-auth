@@ -44,4 +44,12 @@ export class NgStrapiAuthService {
     }
   }
 
+  async signOut() {
+    this.user = undefined;
+    this.jwt = undefined;
+    this.authenticated = false;
+
+    return true;
+  }
+
 }
