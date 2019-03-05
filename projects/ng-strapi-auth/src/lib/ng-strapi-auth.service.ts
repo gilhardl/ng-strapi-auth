@@ -49,6 +49,7 @@ export class NgStrapiAuthService {
     this.user = undefined;
     this.jwt = undefined;
     this.authenticated = false;
+    this.unsaveCredentials();
 
     return true;
   }
