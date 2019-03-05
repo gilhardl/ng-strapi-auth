@@ -134,6 +134,41 @@
           }
         }
       }
+    },
+    "ng-strapi-auth": {
+      "root": "projects/ng-strapi-auth",
+      "sourceRoot": "projects/ng-strapi-auth/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng-strapi-auth/tsconfig.lib.json",
+            "project": "projects/ng-strapi-auth/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-strapi-auth/src/test.ts",
+            "tsConfig": "projects/ng-strapi-auth/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-strapi-auth/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-strapi-auth/tsconfig.lib.json",
+              "projects/ng-strapi-auth/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "strapi-auth"
