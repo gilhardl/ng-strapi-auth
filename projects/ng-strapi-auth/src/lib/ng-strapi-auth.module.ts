@@ -1,15 +1,13 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 
-import { NgStrapiAuthComponent } from './ng-strapi-auth.component';
 import { NgStrapiAuthService } from './ng-strapi-auth.service';
 
 import { StrapiAuthConfig } from './strapi-auth-config';
 
 @NgModule({
-  declarations: [NgStrapiAuthComponent],
-  imports: [
-  ],
-  exports: [NgStrapiAuthComponent]
+  declarations: [ ],
+  imports: [ ],
+  exports: [ ]
 })
 export class NgStrapiAuthModule {
 
