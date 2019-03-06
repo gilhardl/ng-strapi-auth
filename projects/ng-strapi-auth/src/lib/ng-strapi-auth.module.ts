@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule, ModuleWithProviders, Injector } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { NgStrapiAuthService } from './ng-strapi-auth.service';
@@ -26,4 +26,16 @@ export class NgStrapiAuthModule {
     };
   }
 
+}
+
+export function ngStrapiAuthFactory(injector: Injector): () => Promise<boolean> {
+  const authSrv = injector.get(NgStrapiAuthService);
+  return async() => {
+    try {
+      await authSrv.autoSignIn();
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
 }
