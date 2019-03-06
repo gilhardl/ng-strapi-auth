@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { StrapiAuthConfig } from './strapi-auth-config';
+import { NgStrapiAuthConfig } from './ng-strapi-auth-config';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class NgStrapiAuthService {
   private apiUrl: string = undefined;
 
   constructor( 
-    @Inject('config') private config: StrapiAuthConfig,
+    @Inject('config') private config: NgStrapiAuthConfig,
     private httpClient: HttpClient
   ) {
     if (this.config && this.config.apiUrl) {

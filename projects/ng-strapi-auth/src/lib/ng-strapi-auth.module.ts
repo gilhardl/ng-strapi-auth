@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { NgStrapiAuthService } from './ng-strapi-auth.service';
 
-import { StrapiAuthConfig } from './strapi-auth-config';
+import { NgStrapiAuthConfig } from './ng-strapi-auth-config';
 
 @NgModule({
   declarations: [ ],
@@ -14,7 +14,7 @@ import { StrapiAuthConfig } from './strapi-auth-config';
 })
 export class NgStrapiAuthModule {
 
-  public static forRoot(config: StrapiAuthConfig): ModuleWithProviders {
+  public static forRoot(config: NgStrapiAuthConfig): ModuleWithProviders {
     return {
       ngModule: NgStrapiAuthModule,
       providers: [
