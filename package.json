@@ -1,6 +1,20 @@
 {
   "name": "strapi-auth",
   "version": "0.0.0",
+  "homepage": "https://github.com/gilhardl/ng-strapi-auth",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gilhardl/ng-strapi-auth.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gilhardl/ng-strapi-auth/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Lucas GILHARD",
+    "email": "l.gilhard@gmail.com",
+    "url": "http://github.com/gilhardl/"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
