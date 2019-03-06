@@ -2,6 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { NgStrapiAuthService } from './ng-strapi-auth.service';
+import { NgStrapiJwtInterceptorService } from './ng-strapi-jwt-interceptor.service';
 
 import { NgStrapiAuthConfig } from './ng-strapi-auth-config';
 
@@ -19,7 +20,8 @@ export class NgStrapiAuthModule {
       ngModule: NgStrapiAuthModule,
       providers: [
         NgStrapiAuthService,
-        { provide: 'config', useValue: config }
+        { provide: 'config', useValue: config },
+        NgStrapiJwtInterceptorService
       ]
     };
   }
