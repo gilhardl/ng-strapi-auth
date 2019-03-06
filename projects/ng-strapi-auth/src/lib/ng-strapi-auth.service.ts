@@ -2,17 +2,20 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { NgStrapiAuthConfig } from './ng-strapi-auth-config';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NgStrapiAuthService {
 
+  public authStateChanges$: Observable<boolean>;
   public user = undefined;
   public jwt = undefined;
   public authenticated = false;
 
   private apiUrl: string = undefined;
+  private authStateChangesSubject: Subject<boolean> = new Subject();
 
   constructor( 
     @Inject('config') private config: NgStrapiAuthConfig,
@@ -25,6 +28,8 @@ export class NgStrapiAuthService {
       console.error(err);
       throw new Error('[NgStrapiAuth]: no api url provided');
     }
+
+    this.authStateChanges$ = this.authStateChangesSubject.asObservable();
   }
 
   async autoSignIn() {
@@ -36,6 +41,7 @@ export class NgStrapiAuthService {
       this.user = credentials.user;
       this.jwt = credentials.jwt;
       this.authenticated = true;
+      this.authStateChangesSubject.next(this.authenticated);
 
       return this.user;
       
@@ -54,6 +60,7 @@ export class NgStrapiAuthService {
       this.jwt = res.jwt;
       this.authenticated = true;
       this.saveCredentials();
+      this.authStateChangesSubject.next(this.authenticated);
 
       return this.user;
 
@@ -67,6 +74,7 @@ export class NgStrapiAuthService {
     this.jwt = undefined;
     this.authenticated = false;
     this.unsaveCredentials();
+    this.authStateChangesSubject.next(this.authenticated);
 
     return true;
   }
@@ -81,6 +89,7 @@ export class NgStrapiAuthService {
       this.jwt = res.jwt;
       this.authenticated = true;
       this.saveCredentials();
+      this.authStateChangesSubject.next(this.authenticated);
 
       return this.user;
 
