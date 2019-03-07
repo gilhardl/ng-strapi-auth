@@ -122,12 +122,8 @@ export class NgStrapiAuthService {
   }
 
   private unsaveCredentials() {
-    if (this.user) {
-      localStorage.removeItem('current-user');
-    }
-    if (this.jwt) {
-      localStorage.removeItem('current-user-jwt');
-    }
+    localStorage.removeItem('current-user');
+    localStorage.removeItem('current-user-jwt');
   }
 
 }
