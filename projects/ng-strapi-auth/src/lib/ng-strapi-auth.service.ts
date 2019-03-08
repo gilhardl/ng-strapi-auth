@@ -104,8 +104,8 @@ export class NgStrapiAuthService {
 
     if (user && jwt) {
       return {
-        user: user,
-        jwt: jwt
+        user: JSON.parse(user),
+        jwt: JSON.parse(jwt)
       };
     } else {
       return undefined;
@@ -114,10 +114,10 @@ export class NgStrapiAuthService {
 
   private saveCredentials() {
     if (this.user) {
-      localStorage.setItem('current-user', this.user);
+      localStorage.setItem('current-user', JSON.stringify(this.user));
     }
     if (this.jwt) {
-      localStorage.setItem('current-user-jwt', this.jwt);
+      localStorage.setItem('current-user-jwt', JSON.stringify(this.jwt));
     }
   }
 
