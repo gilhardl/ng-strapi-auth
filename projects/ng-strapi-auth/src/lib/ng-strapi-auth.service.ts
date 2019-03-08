@@ -49,6 +49,8 @@ export class NgStrapiAuthService {
     }
 
     this.authStateChanges$ = this.authStateChangesSubject.asObservable();
+    this.userChanges$ = this.userChangesSubject.asObservable();
+    this.jwtChanges$ = this.jwtChangesSubject.asObservable();
   }
 
   async autoSignIn() {
