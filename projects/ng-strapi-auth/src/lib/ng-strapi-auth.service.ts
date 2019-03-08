@@ -8,14 +8,33 @@ import { Subject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class NgStrapiAuthService {
-
-  public authStateChanges$: Observable<boolean>;
-  public user = undefined;
-  public jwt = undefined;
-  public authenticated = false;
-
+  
   private apiUrl: string = undefined;
   private authStateChangesSubject: Subject<boolean> = new Subject();
+  private userChangesSubject: Subject<any> = new Subject();
+  private jwtChangesSubject: Subject<string> = new Subject();
+  private _user = undefined;
+  private _jwt = undefined;
+
+  public authStateChanges$: Observable<boolean>;
+  public userChanges$: Observable<any>;
+  public jwtChanges$: Observable<string>;
+  public get user() {
+    return this._user;
+  }
+  public set user(u) {
+    this._user = u;
+    this.userChangesSubject.next(this._user);
+  }
+  public get jwt() {
+    return this._jwt;
+  }
+  public set jwt(t) {
+    this._jwt = t;
+    this.jwtChangesSubject.next(this._jwt);
+  }
+  public authenticated = false;
+
 
   constructor( 
     @Inject('config') private config: NgStrapiAuthConfig,
