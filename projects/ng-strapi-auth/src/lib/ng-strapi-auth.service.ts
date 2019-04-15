@@ -8,7 +8,6 @@ import { Subject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class NgStrapiAuthService {
-  
   private apiUrl: string = undefined;
   private authStateChangesSubject: Subject<boolean> = new Subject();
   private userChangesSubject: Subject<any> = new Subject();
@@ -35,8 +34,7 @@ export class NgStrapiAuthService {
   }
   public authenticated = false;
 
-
-  constructor( 
+  constructor(
     @Inject('config') private config: NgStrapiAuthConfig,
     private httpClient: HttpClient
   ) {
@@ -54,7 +52,9 @@ export class NgStrapiAuthService {
   }
 
   async autoSignIn() {
-    if (!this.apiUrl) { throw new Error('[NgStrapiAuth]: no api url provided'); }
+    if (!this.apiUrl) {
+      throw new Error('[NgStrapiAuth]: no api url provided');
+    }
 
     const credentials = this.getSavedCredentials();
 
@@ -65,17 +65,23 @@ export class NgStrapiAuthService {
       this.authStateChangesSubject.next(this.authenticated);
 
       return this.user;
-      
     } else {
       throw new Error('[NgStrapiAuth]: no user auto signed in');
     }
   }
 
   async signIn(username: string, password: string) {
-    if (!this.apiUrl) { throw new Error('[NgStrapiAuth]: no api url provided'); }
+    if (!this.apiUrl) {
+      throw new Error('[NgStrapiAuth]: no api url provided');
+    }
 
     try {
-      const res: any = await this.httpClient.post(this.apiUrl + '/auth/local', { identifier: username, password: password }).toPromise();
+      const res: any = await this.httpClient
+        .post(this.apiUrl + '/auth/local', {
+          identifier: username,
+          password: password
+        })
+        .toPromise();
 
       this.user = res.user;
       this.jwt = res.jwt;
@@ -84,7 +90,6 @@ export class NgStrapiAuthService {
       this.authStateChangesSubject.next(this.authenticated);
 
       return this.user;
-
     } catch (err) {
       throw err;
     }
@@ -101,10 +106,18 @@ export class NgStrapiAuthService {
   }
 
   async register(username: string, email: string, password: string) {
-    if (!this.apiUrl) { throw new Error('[NgStrapiAuth]: no api url provided'); }
+    if (!this.apiUrl) {
+      throw new Error('[NgStrapiAuth]: no api url provided');
+    }
 
     try {
-      const res: any = await this.httpClient.post(this.apiUrl + '/auth/local/register', { username: username, email: email, password: password }).toPromise();
+      const res: any = await this.httpClient
+        .post(this.apiUrl + '/auth/local/register', {
+          username: username,
+          email: email,
+          password: password
+        })
+        .toPromise();
 
       this.user = res.user;
       this.jwt = res.jwt;
@@ -113,10 +126,23 @@ export class NgStrapiAuthService {
       this.authStateChangesSubject.next(this.authenticated);
 
       return this.user;
-
     } catch (err) {
       throw err;
     }
+  }
+
+  async saveCredentials() {
+    if (this.user) {
+      localStorage.setItem('current-user', JSON.stringify(this.user));
+    }
+    if (this.jwt) {
+      localStorage.setItem('current-user-jwt', JSON.stringify(this.jwt));
+    }
+  }
+
+  async unsaveCredentials() {
+    localStorage.removeItem('current-user');
+    localStorage.removeItem('current-user-jwt');
   }
 
   private getSavedCredentials() {
@@ -132,19 +158,4 @@ export class NgStrapiAuthService {
       return undefined;
     }
   }
-
-  private saveCredentials() {
-    if (this.user) {
-      localStorage.setItem('current-user', JSON.stringify(this.user));
-    }
-    if (this.jwt) {
-      localStorage.setItem('current-user-jwt', JSON.stringify(this.jwt));
-    }
-  }
-
-  private unsaveCredentials() {
-    localStorage.removeItem('current-user');
-    localStorage.removeItem('current-user-jwt');
-  }
-
 }
